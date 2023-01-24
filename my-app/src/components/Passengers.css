@@ -1,0 +1,14 @@
+.passengerEntry {
+    display: flex;
+    flex-direction: column;
+}
+
+.passengerInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.passengerCount {
+    display: flex;
+    flex-direction: row;
+}
