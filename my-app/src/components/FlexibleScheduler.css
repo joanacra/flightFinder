@@ -1,0 +1,253 @@
+.flexibleDates {
+    position: relative;
+}
+
+.divFlexibleDates {
+    width: 606px;
+    height: 70px;
+    background: #ebebeb;
+    border: 3px solid #033c1c;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.divFlexibleDates:hover {
+    box-shadow: 0 0 7px #3a664d;
+    cursor: pointer;
+}
+
+.labelFlex {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.65);
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.toggleInputFlex {
+    font-size: 22px;
+    color: black;
+    min-height: 25px;
+    border: 0;
+    background: transparent;
+    margin-left: 15px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.flexDatesDisplay {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    background: #5f8770;
+    border: 2px solid #002c13;
+    border-radius: 16px;
+    position: absolute;
+    top: calc(100% + 11px);
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: default;
+}
+
+.questionEntry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.questionEntry:last-child {
+    margin-bottom: 30px;
+}
+
+.questionInfo {
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    margin: 0 10px;
+}
+
+.question {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.mandatory {
+    font-size: 13px;
+    font-weight: 500;
+    justify-content: center;
+}
+
+.questionAnswers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    width: 350px !important;
+}
+
+.months {
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: row;
+    width: 264px;
+    overflow-x: hidden;
+}
+
+.roundedMonth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid #3a664d;
+    min-width: 45px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #ebebeb;
+    margin-right: 4px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.roundedMonth:hover {
+    background-color: #ffffff;
+    color: black;
+    border: 2px solid #033c1c;
+    cursor: pointer;
+}
+
+.selectedMonth {
+    background-color: #ffffff;
+    color: black;
+    border: 2px solid #033c1c;
+    cursor: pointer;
+}
+
+.arrow {
+    cursor: pointer;
+}
+
+.arrow:last-child {
+    margin-left: 2px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.numberOfDays {
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.css-1aznpnh-MuiSlider-root {
+    width: 60% !important;
+    color: white !important;
+}
+
+.css-eg0mwd-MuiSlider-thumb:hover {
+    box-shadow: 0px 0px 0px 8px rgb(3 60 28 / 16%) !important;
+}
+
+.css-eg0mwd-MuiSlider-thumb.Mui-active {
+    box-shadow: 0px 0px 0px 14px rgb(3 60 28 / 16%) !important;
+}
+
+.css-nnid7-MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
+    background-color: #033c1c;
+    border-radius: 5px;
+}
+
+.css-nnid7-MuiSlider-valueLabel {
+    font-family: "Open Sans", sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+}
+
+.css-1eoe787-MuiSlider-markLabel,
+.css-yafthl-MuiSlider-markLabel {
+    color: white !important;
+    font-family: "Open Sans", sans-serif !important;
+    font-size: 14px !important;
+}
+
+.answerFlyOutDay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.groupOfDays {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.groupOfDays:first-child {
+    margin-bottom: 10px;
+}
+
+.dayOfTheWeek {
+    background-color: #ebebeb;
+    color: rgba(0, 0, 0, 0.7);
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 6px;
+    padding: 6px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.dayOfTheWeek:hover {
+    background-color: #ffffff;
+    color: black;
+    cursor: pointer;
+}
+
+.selectedWeekDay {
+    background-color: #ffffff;
+    color: black;
+    cursor: pointer;
+}
+
+.scheduler-arrow {
+    visibility: visible;
+    left: 50%;
+    top: 100%;
+    position: absolute;
+    height: 11px;
+    width: 22px;
+    transform: translateX(-50%);
+}
+
+.scheduler-arrow::after {
+    left: 4px;
+    top: 5px;
+    background: #5f8770;
+    border: 2px solid #002c13 !important;
+    box-shadow: none;
+    content: "";
+    height: 12px;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 12px;
+}

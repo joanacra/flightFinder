@@ -1,0 +1,24 @@
+.wrapper {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center;
+    margin-right: 80px;
+}
+
+.typeSelected {
+    align-items: flex-start;
+}
+
+.typeSelected > span:first-child {
+    color: #033c1c;
+    padding: 0 9px;
+}
+
+.typeSelected > span:last-child {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: black;
+}

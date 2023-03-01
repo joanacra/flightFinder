@@ -1,6 +1,77 @@
-.passengerEntry {
+.divPassengers {
+    width: 290px;
+    height: 70px;
+    background: #ebebeb;
+    border: 3px solid #033c1c;
+    border-radius: 6px;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.divPassengers:hover {
+    box-shadow: 0 0 7px #3a664d;
+    cursor: pointer;
+}
+
+.divPassengers:focus-within {
+    box-shadow: unset;
+}
+
+.passengersButtonContainer {
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.labelPassengers {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.65);
+    margin-left: 15px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.togglePassengersDisplay {
+    border: 0;
+    background: transparent;
+    font-size: 22px;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    cursor: pointer;
+}
+
+.passengerDisplay {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    background: #ebebeb;
+    border: 2px solid #002c13;
+    border-radius: 6px;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: -3px;
+    cursor: default;
+}
+
+.passengerEntry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-right: 12px;
 }
 
 .passengerInfo {
@@ -8,7 +79,56 @@
     flex-direction: column;
 }
 
+.passengerSpan {
+    font-size: 18px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: default;
+}
+
+.detailSpan {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.65);
+}
+
 .passengerCount {
     display: flex;
     flex-direction: row;
+}
+
+.minusAndPlusButton {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(0, 0, 0, 0.85);
+    border-radius: 73px;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: normal;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.minusAndPlusButton:hover {
+    box-shadow: 0 0 7px #6aa182;
+}
+
+.minusAndPlusButton:active {
+    background: #002c13;
+    color: #ebebeb;
+}
+
+.quantitySpan {
+    width: 11px;
+    height: 26px;
+    left: 249px;
+    top: 119px;
+    font-size: 20px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.85);
+    margin-left: 15px;
 }
