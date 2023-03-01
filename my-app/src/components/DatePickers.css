@@ -1,0 +1,224 @@
+.divDates {
+    width: 290px;
+    height: 70px;
+    background: #ebebeb;
+    border: 3px solid #033c1c;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.divDateOfDepart {
+    margin-right: 10px;
+}
+
+.divDateOfReturn {
+    margin-left: 10px;
+}
+
+.divDates:hover {
+    box-shadow: 0 0 7px #3a664d;
+}
+
+.oneWayDate {
+    width: 606px;
+}
+
+.dateButton {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.labelDates {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.65);
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.inputDates {
+    display: none;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.formattedDate {
+    font-size: 22px;
+    color: black;
+    min-height: 25px;
+    margin-top: calc(20px / 3);
+}
+
+.rmdp-wrapper {
+    background: #5f8770;
+    border: 2px solid #002c13;
+    border-radius: 16px;
+}
+
+.rmdp-calendar {
+    width: 620px;
+    height: 330px;
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.rmdp-shadow,
+.rmdp-ep-shadow,
+.rmdp-ep-shadow::after {
+    box-shadow: none;
+}
+
+.ep-arrow {
+    width: 22px !important;
+}
+
+.rmdp-ep-arrow::after {
+    background: #5f8770;
+    border: 2px solid #002c13 !important;
+}
+
+.rmdp-ep-arrow[direction="top"] {
+    border-bottom: none;
+}
+
+.rmdp-arrow-container {
+    background: #ebebeb;
+    box-shadow: 0px 1px 1px rgba(0, 14, 51, 0.05);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.rmdp-arrow-container:hover {
+    box-shadow: 0 0 5px #033c1c;
+    background-color: #033c1c;
+    color: #ebebeb;
+}
+
+.rmdp-arrow {
+    margin: auto 0;
+    border: solid #033c1c;
+    border-width: 0 2px 2px 0;
+}
+
+.rmdp-arrow.rmdp-left {
+    margin-left: 2px;
+}
+.rmdp-arrow.rmdp-right {
+    margin-right: 2px;
+}
+
+.rmdp-day-picker {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.rmdp-day-picker > div:first-child {
+    margin-right: 25px !important;
+}
+
+.rmdp-header-values {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.rmdp-week {
+    width: 280px;
+    padding: 2px;
+}
+
+.rmdp-week-day {
+    color: black;
+    font-size: 15px;
+}
+
+.rmdp-day {
+    width: 35px;
+    height: 35px;
+    box-sizing: border-box;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.rmdp-day span {
+    font-size: 18px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+}
+
+.rmdp-day.rmdp-today {
+    background-color: #87b89a;
+    border-radius: 50%;
+}
+
+.rmdp-day.rmdp-today span {
+    background-color: transparent;
+    color: black;
+}
+
+.rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+    background-color: #2d5840;
+    color: #ebebeb;
+}
+
+.rmdp-day-hidden {
+    background-color: transparent;
+}
+
+.rmdp-day.rmdp-disabled {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.rmdp-range {
+    background-color: #8fc0a5;
+    color: #002c13;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+.rmdp-range.start,
+.rmdp-range.end,
+.rmdp-day.rmdp-selected span:not(.highlight),
+.rmdp-day.rmdp-today.rmdp-range.start span {
+    border-radius: 6px;
+    background-color: #033c1c;
+    color: white;
+}
+
+.rmdp-month-picker,
+.rmdp-year-picker {
+    background-color: #ebebeb;
+    border-radius: 5px;
+    width: 300px;
+    padding: 3px;
+}
+
+.rmdp-ym .rmdp-day span {
+    font-size: 15px;
+}
+
+.rmdp-ym .rmdp-day.rmdp-today,
+.rmdp-ym .rmdp-day:hover,
+.rmdp-ym .rmdp-day span:hover {
+    border-radius: 6px;
+}
