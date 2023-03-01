@@ -6,12 +6,13 @@ import "./FlexibleScheduler.css";
 const MONTH_SCROLL_SIZE = 53;
 
 interface Props {
+    value: string;
     onChange: (selectedMonth: any) => void;
 }
 
 const PickFlexMonth = (props: Props) => {
     const [monthOffset, setMonthOffset] = useState(0);
-    const [selectedMonth, setSelectedMonth] = useState("");
+    const [selectedMonth, setSelectedMonth] = useState(props.value);
     const monthsRef = useRef(null);
 
     const months = () => {
@@ -36,6 +37,7 @@ const PickFlexMonth = (props: Props) => {
     const renderMonths = () => {
         return months().map((date) => (
             <div
+                key={date.month.name}
                 className={
                     selectedMonth === date.month.name
                         ? "roundedMonth selectedMonth"

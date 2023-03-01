@@ -21,10 +21,10 @@ const SearchForm = () => {
         roundtrip: true,
         dateType: DateType.EXACT,
         flexibleScheduling: {
-            month: "",
-            duration: 0,
-            weekDay: "",
-            cost: 0,
+            flexMonth: "",
+            flexDuration: null,
+            flexWeekDay: "",
+            flexFlightCost: null,
         },
     });
     const depAirRef = useRef(null);
@@ -134,6 +134,37 @@ const SearchForm = () => {
                     </button>
                 </div>
             </form>
+
+            {/* <div className="results">
+                <span>
+                    Dep: {form.departureAirport} - {form.dateOfDeparture}
+                </span>
+                <span>
+                    Arr: {form.arrivalAirport} - {form.dateOfReturn}
+                </span>
+                <span>
+                    Pass:{" "}
+                    {form.passengers.adults +
+                        "," +
+                        form.passengers.teens +
+                        "," +
+                        form.passengers.children +
+                        "," +
+                        form.passengers.infants}
+                </span>
+                <span>Round: {form.roundtrip === true ? "yes" : "no"}</span>
+                <span>DateType: {form.dateType}</span>
+                <span>FlexibleMonth: {form.flexibleScheduling.flexMonth}</span>
+                <span>
+                    FlexbileDuration: {form.flexibleScheduling.flexDuration}
+                </span>
+                <span>
+                    FlexnakjsdbwaWeekday: {form.flexibleScheduling.flexWeekDay}
+                </span>
+                <span>
+                    FlexnakCost: {form.flexibleScheduling.flexFlightCost}
+                </span>
+            </div> */}
         </div>
     );
 };

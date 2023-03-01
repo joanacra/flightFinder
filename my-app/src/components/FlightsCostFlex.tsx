@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./FlexibleScheduler.css";
 
 interface Props {
+    value: number | null;
     onChange: (selectedCost: any) => void;
 }
 
@@ -27,7 +28,7 @@ const valueLabelCost = (value: number) => {
 };
 
 const FlightsCostFlex = (props: Props) => {
-    const [selectedCost, setSelectedCost] = useState(0);
+    const [selectedCost, setSelectedCost] = useState(props.value);
 
     const handleCostSelection = (event: any) => {
         props.onChange(event.target.value);
@@ -56,7 +57,7 @@ const FlightsCostFlex = (props: Props) => {
                     aria-label="Always visible"
                     min={0}
                     max={500}
-                    defaultValue={0}
+                    defaultValue={selectedCost ?? 500}
                     step={10}
                     getAriaValueText={valueTextCost}
                     marks={marksCost}

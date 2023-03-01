@@ -97,3 +97,8 @@
     background: #033c1c;
     color: #6aa182;
 }
+
+.results {
+    display: flex;
+    flex-direction: column;
+}

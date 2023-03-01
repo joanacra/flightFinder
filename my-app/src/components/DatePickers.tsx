@@ -10,6 +10,8 @@ interface Props {
 
 type DateType = "dateOfDeparture" | "dateOfReturn";
 
+const formatOfDate = "DD/MM/YYYY";
+
 const DatePickers = (props: Props) => {
     const [departureDate, setDepartureDate] = useState<DateObject>();
     const [returnDate, setReturnDate] = useState<DateObject>();
@@ -29,9 +31,13 @@ const DatePickers = (props: Props) => {
             : (e as DateObject);
         if (dateType === "dateOfDeparture") {
             const newDates = {
-                dateOfDeparture: newDepDate?.format("DD/MM/YYYY"),
-                dateOfReturn: returnDate?.format("DD/MM/YYYY"),
+                dateOfDeparture: newDepDate?.format(formatOfDate),
+                dateOfReturn: returnDate?.format(formatOfDate),
             };
+            if (returnDate && newDepDate > returnDate) {
+                newDates.dateOfReturn = "";
+                setReturnDate(undefined);
+            }
             props.onChange(newDates);
             setDepartureDate(newDepDate);
             if (props.roundtrip) {
@@ -39,8 +45,8 @@ const DatePickers = (props: Props) => {
             }
         } else {
             const newDates = {
-                dateOfDeparture: departureDate?.format("DD/MM/YYYY"),
-                dateOfReturn: newRetDate?.format("DD/MM/YYYY"),
+                dateOfDeparture: departureDate?.format(formatOfDate),
+                dateOfReturn: newRetDate?.format(formatOfDate),
             };
             props.onChange(newDates);
             setReturnDate(newRetDate);
@@ -146,7 +152,7 @@ const DatePickers = (props: Props) => {
                         numberOfMonths={2}
                         value={getDateValues()}
                         range={props.roundtrip}
-                        minDate={new DateObject()}
+                        minDate={departureDate ?? new DateObject()}
                         maxDate={new DateObject().add(2, "years")}
                         style={{ display: "none" }}
                         onOpen={() => setIsRetCalendarOpen(true)}

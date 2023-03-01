@@ -15,9 +15,9 @@ interface Props {
 const FlexibleScheduler = (props: Props) => {
     const [flexScheduler, setFlexScheduler] = useState({
         flexMonth: "",
-        flexDuration: 0,
+        flexDuration: null,
         flexWeekDay: "",
-        flexFlightCost: 0,
+        flexFlightCost: null,
     });
     const [showScheduler, setShowScheduler] = useState(false);
     const flexPopUpRef = useRef(null);
@@ -77,6 +77,32 @@ const FlexibleScheduler = (props: Props) => {
         props.onChange(newState);
     };
 
+    const renderInformation = () => {
+        let ret = "";
+        if (props.roundtrip) {
+            if (
+                flexScheduler.flexMonth &&
+                flexScheduler.flexDuration &&
+                flexScheduler.flexWeekDay
+            ) {
+                ret = `${flexScheduler.flexDuration} day(s) in ${flexScheduler.flexMonth}, leaving on a ${flexScheduler.flexWeekDay}`;
+            }
+        } else {
+            if (flexScheduler.flexMonth && flexScheduler.flexWeekDay) {
+                ret = `Going in ${flexScheduler.flexMonth}, leaving on ${flexScheduler.flexWeekDay}`;
+            }
+        }
+
+        if (ret) {
+            if (flexScheduler.flexFlightCost) {
+                ret += ` for less than €${flexScheduler.flexFlightCost}`;
+            }
+        } else {
+            ret = "Choose duration and other information";
+        }
+        return ret;
+    };
+
     return (
         <div className="flexibleDates">
             <div
@@ -85,23 +111,35 @@ const FlexibleScheduler = (props: Props) => {
                 className="divFlexibleDates"
             >
                 <label htmlFor="tripDates" className="labelFlex">
-                    Trip dates
+                    Trip information
                 </label>
                 <button className="labelFlex toggleInputFlex">
-                    Choose date
+                    {renderInformation()}
                 </button>
             </div>
             {showScheduler && (
                 <div className="flexDatesDisplay" ref={flexPopUpRef}>
-                    <PickFlexMonth onChange={updateFlexMonth} />
+                    <PickFlexMonth
+                        value={flexScheduler.flexMonth}
+                        onChange={updateFlexMonth}
+                    />
 
                     {props.roundtrip && (
-                        <TripDurationFlex onChange={updateFlexDuration} />
+                        <TripDurationFlex
+                            value={flexScheduler.flexDuration}
+                            onChange={updateFlexDuration}
+                        />
                     )}
 
-                    <PickWeekDayFlex onChange={updateFlexWeekDay} />
+                    <PickWeekDayFlex
+                        value={flexScheduler.flexWeekDay}
+                        onChange={updateFlexWeekDay}
+                    />
 
-                    <FlightsCostFlex onChange={updateFlexFlightCost} />
+                    <FlightsCostFlex
+                        value={flexScheduler.flexFlightCost}
+                        onChange={updateFlexFlightCost}
+                    />
                 </div>
             )}
             {showScheduler && (

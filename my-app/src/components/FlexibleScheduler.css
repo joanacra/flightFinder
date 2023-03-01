@@ -125,13 +125,7 @@
     color: rgba(0, 0, 0, 0.7);
 }
 
-.roundedMonth:hover {
-    background-color: #ffffff;
-    color: black;
-    border: 2px solid #033c1c;
-    cursor: pointer;
-}
-
+.roundedMonth:hover,
 .selectedMonth {
     background-color: #ffffff;
     color: black;
@@ -199,10 +193,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.groupOfDays:first-child {
-    margin-bottom: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .dayOfTheWeek {
@@ -215,14 +207,10 @@
     padding: 6px;
     margin-right: 5px;
     margin-left: 5px;
+    margin-bottom: 10px;
 }
 
-.dayOfTheWeek:hover {
-    background-color: #ffffff;
-    color: black;
-    cursor: pointer;
-}
-
+.dayOfTheWeek:hover,
 .selectedWeekDay {
     background-color: #ffffff;
     color: black;

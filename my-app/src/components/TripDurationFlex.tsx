@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./FlexibleScheduler.css";
 
 interface Props {
+    value: number | null;
     onChange: (selectedDuration: any) => void;
 }
 
@@ -27,7 +28,7 @@ const valueLabelDays = (value: number) => {
 };
 
 const TripDurationFlex = (props: Props) => {
-    const [selectedDuration, setSelectedDuration] = useState(0);
+    const [selectedDuration, setSelectedDuration] = useState(props.value);
 
     const handleDurationSelection = (event: any) => {
         props.onChange(event.target.value);
@@ -57,7 +58,7 @@ const TripDurationFlex = (props: Props) => {
                     aria-label="Always visible"
                     min={1}
                     max={15}
-                    defaultValue={1}
+                    defaultValue={selectedDuration ?? 1}
                     getAriaValueText={valueTextDays}
                     step={1}
                     marks={marksDays}

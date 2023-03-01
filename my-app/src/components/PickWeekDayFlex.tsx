@@ -2,16 +2,43 @@ import { useState } from "react";
 import "./FlexibleScheduler.css";
 
 interface Props {
+    value: string;
     onChange: (selectedWeekDay: any) => void;
 }
 
+const daysOfTheWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+];
+
 const PickWeekDayFlex = (props: Props) => {
-    const [selectedWeekDay, setSelectedWeekDay] = useState("");
+    const [selectedWeekDay, setSelectedWeekDay] = useState(props.value);
 
     const handleWeekDaySelection = (weekDay: string) => (e: any) => {
         e.preventDefault();
         props.onChange(weekDay);
         setSelectedWeekDay(weekDay);
+    };
+
+    const renderWeekDays = () => {
+        return daysOfTheWeek.map((day) => (
+            <div
+                key={day}
+                className={
+                    selectedWeekDay === day
+                        ? "dayOfTheWeek selectedWeekDay"
+                        : "dayOfTheWeek"
+                }
+                onClick={handleWeekDaySelection(day)}
+            >
+                {day}
+            </div>
+        ));
     };
 
     return (
@@ -35,80 +62,7 @@ const PickWeekDayFlex = (props: Props) => {
                 <span className="question mandatory">Mandatory</span>
             </div>
             <div className="questionAnswers answerFlyOutDay">
-                <div className="groupOfDays">
-                    <div
-                        className={
-                            selectedWeekDay === "monday"
-                                ? "dayOfTheWeek selectedWeekDay"
-                                : "dayOfTheWeek"
-                        }
-                        onClick={handleWeekDaySelection("monday")}
-                    >
-                        Monday
-                    </div>
-                    <div
-                        className={
-                            selectedWeekDay === "tuesday"
-                                ? "dayOfTheWeek selectedWeekDay"
-                                : "dayOfTheWeek"
-                        }
-                        onClick={handleWeekDaySelection("tuesday")}
-                    >
-                        Tuesday
-                    </div>
-                    <div
-                        className={
-                            selectedWeekDay === "wednesday"
-                                ? "dayOfTheWeek selectedWeekDay"
-                                : "dayOfTheWeek"
-                        }
-                        onClick={handleWeekDaySelection("wednesday")}
-                    >
-                        Wednesday
-                    </div>
-                    <div
-                        className={
-                            selectedWeekDay === "thursday"
-                                ? "dayOfTheWeek selectedWeekDay"
-                                : "dayOfTheWeek"
-                        }
-                        onClick={handleWeekDaySelection("thursday")}
-                    >
-                        Thursday
-                    </div>
-                </div>
-                <div className="groupOfDays">
-                    <div
-                        className={
-                            selectedWeekDay === "friday"
-                                ? "dayOfTheWeek selectedWeekDay"
-                                : "dayOfTheWeek"
-                        }
-                        onClick={handleWeekDaySelection("friday")}
-                    >
-                        Friday
-                    </div>
-                    <div
-                        className={
-                            selectedWeekDay === "saturday"
-                                ? "dayOfTheWeek selectedWeekDay"
-                                : "dayOfTheWeek"
-                        }
-                        onClick={handleWeekDaySelection("saturday")}
-                    >
-                        Saturday
-                    </div>
-                    <div
-                        className={
-                            selectedWeekDay === "sunday"
-                                ? "dayOfTheWeek selectedWeekDay"
-                                : "dayOfTheWeek"
-                        }
-                        onClick={handleWeekDaySelection("sunday")}
-                    >
-                        Sunday
-                    </div>
-                </div>
+                <div className="groupOfDays">{renderWeekDays()}</div>
             </div>
         </div>
     );
