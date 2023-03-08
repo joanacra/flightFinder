@@ -1,10 +1,11 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import DatePickers from "./DatePickers";
 import Passengers from "./Passengers";
 import RoundtripOrNot from "./RoundtripOrNot";
 import FlexibleDates, { DateType } from "./FlexibleDates";
 import FlexibleScheduler from "./FlexibleScheduler";
 import "./SearchForm.css";
+import RyanairService from "../services/RyanairService";
 
 const SearchForm = () => {
     const [form, setForm] = useState({
@@ -27,8 +28,23 @@ const SearchForm = () => {
             flexFlightCost: null,
         },
     });
+    const [departAirports, setDepartAirports] = useState([]);
+    const [arrivalAirports, setArrivalAirports] = useState([]);
     const depAirRef = useRef(null);
     const arrAirRef = useRef(null);
+    const service = new RyanairService();
+
+    useEffect(() => {
+        service
+            .getDepartureAirports()
+            .then((airports) => setDepartAirports(airports));
+    }, []);
+
+    const getArrivalAirports = () => {
+        service
+            .getArrivalAirports(form.departureAirport)
+            .then((airports) => setArrivalAirports(airports));
+    };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [event.target.name]: event.target.value });
