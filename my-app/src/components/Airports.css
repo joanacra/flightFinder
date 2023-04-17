@@ -1,0 +1,86 @@
+.divAirports {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 45px;
+    position: relative;
+}
+
+.airports {
+    width: 500px;
+    height: 70px;
+    background: #ebebeb;
+    border: 3px solid #033c1c;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.airports:hover {
+    box-shadow: 0 0 7px #3a664d;
+}
+
+.airports:first-child {
+    margin-right: 20px;
+}
+
+.airportLabel {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: rgba(0, 0, 0, 0.65);
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.input {
+    border: 0;
+    background: transparent;
+    font-size: 22px;
+    color: black;
+    cursor: auto;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.listOfAirports {
+    height: fit-content;
+    max-height: 310px;
+    width: 502px;
+    background: #ebebeb;
+    border: 2px solid #033c1c;
+    border-radius: 6px;
+    overflow-y: scroll;
+    position: absolute;
+    top: calc(100% + 1px);
+    z-index: 1;
+}
+
+.listOfAirports::-webkit-scrollbar {
+    scrollbar-width: thin;
+}
+
+.individualAirport {
+    color: rgba(0, 0, 0, 0.8);
+    padding-top: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.individualAirport:last-child {
+    padding-bottom: 3px;
+}
+
+.individualAirport:hover {
+    color: black;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    border-radius: 5px;
+}

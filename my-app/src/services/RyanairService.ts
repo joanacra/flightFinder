@@ -5,11 +5,14 @@
 // https://axios-http.com/docs/example
 
 import axios from "axios";
+import Airport from "../models/Airport";
 
 class RyanairService {
     constructor() {}
 
-    private getAirports(url: string) {
+    public getDepartureAirports() {
+        const url =
+            "https://www.ryanair.com/api/views/locate/5/airports/en/active";
         return axios
             .get(url)
             .then(function (response) {
@@ -18,11 +21,12 @@ class RyanairService {
                         code: string;
                         name: string;
                         country: { name: string };
-                    }) => ({
-                        airportCode: airport.code,
-                        airportName: airport.name,
-                        airportCountry: airport.country.name,
-                    })
+                    }) =>
+                        new Airport(
+                            airport.code,
+                            airport.name,
+                            airport.country.name
+                        )
                 );
 
                 return airports;
@@ -33,15 +37,26 @@ class RyanairService {
             });
     }
 
-    public getDepartureAirports() {
-        const url =
-            "https://www.ryanair.com/api/views/locate/5/airports/en/active";
-        return this.getAirports(url);
-    }
-
     public getArrivalAirports(departureAirportCode: string) {
         const url = `https://www.ryanair.com/api/views/locate/searchWidget/routes/en/airport/${departureAirportCode}`;
-        return this.getAirports(url);
+        return axios.get(url).then(function (response) {
+            const airports = response.data.map(
+                (airport: {
+                    arrivalAirport: {
+                        code: string;
+                        name: string;
+                        country: { name: string };
+                    };
+                }) =>
+                    new Airport(
+                        airport.arrivalAirport.code,
+                        airport.arrivalAirport.name,
+                        airport.arrivalAirport.country.name
+                    )
+            );
+
+            return airports;
+        });
     }
 }
 
