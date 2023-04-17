@@ -4,8 +4,8 @@ import Passengers from "./Passengers";
 import RoundtripOrNot from "./RoundtripOrNot";
 import FlexibleDates, { DateType } from "./FlexibleDates";
 import FlexibleScheduler from "./FlexibleScheduler";
+import Airports from "./Airports";
 import "./SearchForm.css";
-import RyanairService from "../services/RyanairService";
 
 const SearchForm = () => {
     const [form, setForm] = useState({
@@ -28,27 +28,6 @@ const SearchForm = () => {
             flexFlightCost: null,
         },
     });
-    const [departAirports, setDepartAirports] = useState([]);
-    const [arrivalAirports, setArrivalAirports] = useState([]);
-    const depAirRef = useRef(null);
-    const arrAirRef = useRef(null);
-    const service = new RyanairService();
-
-    useEffect(() => {
-        service
-            .getDepartureAirports()
-            .then((airports) => setDepartAirports(airports));
-    }, []);
-
-    const getArrivalAirports = () => {
-        service
-            .getArrivalAirports(form.departureAirport)
-            .then((airports) => setArrivalAirports(airports));
-    };
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [event.target.name]: event.target.value });
-    };
 
     const updateDates = (newDates: any) => {
         setForm({ ...form, ...newDates });
@@ -70,22 +49,10 @@ const SearchForm = () => {
         setForm({ ...form, flexibleScheduling: newFlexScheduler });
     };
 
-    const focusAirportInput = (airport: string) => (event: any) => {
-        if (airport === "departure") {
-            if (depAirRef?.current != null) {
-                (depAirRef.current as HTMLInputElement).focus();
-            }
-        } else {
-            if (arrAirRef?.current != null) {
-                (arrAirRef.current as HTMLInputElement).focus();
-            }
-        }
-    };
-
     return (
         <div className="frame">
             <form className="form">
-                <div className="divDatesAndRoundTrip">
+                <div className="divFlexDatesAndRoundTrip">
                     <RoundtripOrNot
                         initialValue={true}
                         onChange={toggleRoundtrip}
@@ -94,43 +61,7 @@ const SearchForm = () => {
                     <FlexibleDates onChange={updateDateType} />
                 </div>
 
-                <div className="divAirports">
-                    <div
-                        className="elements"
-                        onClick={focusAirportInput("departure")}
-                    >
-                        <label htmlFor="departureAirport" className="label">
-                            Departure
-                        </label>
-                        <input
-                            ref={depAirRef}
-                            type="text"
-                            placeholder="From..."
-                            name="departureAirport"
-                            value={form.departureAirport}
-                            onChange={handleChange}
-                            className="label input"
-                        />
-                    </div>
-
-                    <div
-                        className="elements"
-                        onClick={focusAirportInput("arrival")}
-                    >
-                        <label htmlFor="arrivalAirport" className="label">
-                            Destination
-                        </label>
-                        <input
-                            ref={arrAirRef}
-                            type="text"
-                            placeholder="To..."
-                            name="arrivalAirport"
-                            value={form.arrivalAirport}
-                            onChange={handleChange}
-                            className="label input"
-                        />
-                    </div>
-                </div>
+                <Airports />
 
                 <div className="divOtherInfo">
                     {form.dateType === DateType.EXACT ? (
