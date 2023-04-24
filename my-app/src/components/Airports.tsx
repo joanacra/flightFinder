@@ -3,7 +3,11 @@ import Airport from "../models/Airport";
 import "./Airports.css";
 import RyanairService from "../services/RyanairService";
 
-const Airports = () => {
+interface Props {
+    onChange: (newAirports: any) => void;
+}
+
+const Airports = (props: Props) => {
     const [showDepAirports, setShowDepAirports] = useState(false);
     const [showArrAirports, setShowArrAirports] = useState(false);
     const [departureAirport, setDepartureAirport] = useState<Airport | null>();
@@ -172,6 +176,10 @@ const Airports = () => {
         setDepartureAirportFilter("");
         setShowDepAirports(false);
         getArrivalAirports(selectedAirport.airportCode);
+        props.onChange({
+            departureAirport: selectedAirport,
+            arrivalAirport: arrivalAirport,
+        });
     };
 
     const handleArrivalSelection = (selectedAirport: Airport) => (e: any) => {
@@ -179,6 +187,10 @@ const Airports = () => {
         setArrivalAirport(selectedAirport);
         setArrivalAirportFilter("");
         setShowArrAirports(false);
+        props.onChange({
+            departureAirport: departureAirport,
+            arrivalAirport: selectedAirport,
+        });
     };
 
     const renderDepartureAirports = () => {
