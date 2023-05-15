@@ -5,9 +5,10 @@ import RoundtripOrNot from "./RoundtripOrNot";
 import FlexibleDates, { DateType } from "./FlexibleDates";
 import FlexibleScheduler from "./FlexibleScheduler";
 import Airports from "./Airports";
-import "./SearchForm.css";
 import Airport from "../models/Airport";
 import RyanairService from "../services/RyanairService";
+import ResultsList from "./ResultsList";
+import "./SearchForm.css";
 
 type State = {
     departureAirport: Airport | null;
@@ -51,6 +52,8 @@ const SearchForm = () => {
             flexFlightCost: null,
         },
     });
+    const [search, setSearch] = useState(false);
+    const [showFares, setShowFares] = useState(false);
 
     const updateAirports = (selectedAirports: any) => {
         setForm({ ...form, ...selectedAirports });
@@ -78,105 +81,89 @@ const SearchForm = () => {
 
     const searchFlights = (event: any) => {
         event.preventDefault();
+        setSearch(true);
 
-        const service = new RyanairService();
+        setShowFares(false);
         if (form.roundtrip) {
-            service.getExactRoundtripFlights(
-                (form.departureAirport as Airport).airportCode,
-                (form.arrivalAirport as Airport).airportCode,
-                form.dateOfDeparture
-                    .replace(/\//g, "-")
-                    .split("-")
-                    .reverse()
-                    .join("-"),
-                form.dateOfReturn
-                    .replace(/\//g, "-")
-                    .split("-")
-                    .reverse()
-                    .join("-")
-            );
+            RyanairService.getInstance()
+                .getExactRoundtripFlights(
+                    (form.departureAirport as Airport).airportCode,
+                    (form.arrivalAirport as Airport).airportCode,
+                    form.dateOfDeparture
+                        .replace(/\//g, "-")
+                        .split("-")
+                        .reverse()
+                        .join("-"),
+                    form.dateOfReturn
+                        .replace(/\//g, "-")
+                        .split("-")
+                        .reverse()
+                        .join("-")
+                )
+                .then((_) => {
+                    setShowFares(true);
+                });
         } else {
-            service.getExactOneWayFlights(
-                (form.departureAirport as Airport).airportCode,
-                (form.arrivalAirport as Airport).airportCode,
-                form.dateOfDeparture
-                    .replace(/\//g, "-")
-                    .split("-")
-                    .reverse()
-                    .join("-")
-            );
+            RyanairService.getInstance()
+                .getExactOneWayFlights(
+                    (form.departureAirport as Airport).airportCode,
+                    (form.arrivalAirport as Airport).airportCode,
+                    form.dateOfDeparture
+                        .replace(/\//g, "-")
+                        .split("-")
+                        .reverse()
+                        .join("-")
+                )
+                .then((_) => {
+                    setShowFares(true);
+                });
         }
     };
 
     return (
-        <div className="frame">
-            <form className="form">
-                <div className="divFlexDatesAndRoundTrip">
-                    <RoundtripOrNot
-                        initialValue={true}
-                        onChange={toggleRoundtrip}
-                    />
-
-                    <FlexibleDates onChange={updateDateType} />
-                </div>
-
-                <Airports onChange={updateAirports} />
-
-                <div className="divOtherInfo">
-                    {form.dateType === DateType.EXACT ? (
-                        <DatePickers
-                            roundtrip={form.roundtrip}
-                            onChange={updateDates}
+        <>
+            <div className="frame">
+                <form className="form">
+                    <div className="divFlexDatesAndRoundTrip">
+                        <RoundtripOrNot
+                            initialValue={true}
+                            onChange={toggleRoundtrip}
                         />
-                    ) : (
-                        <FlexibleScheduler
-                            roundtrip={form.roundtrip}
-                            onChange={updateFlexScheduler}
-                        />
-                    )}
-                    <Passengers onChange={updatePassengers} />
-                    <button
-                        className="elements label searchButton"
-                        onClick={searchFlights}
-                    >
-                        Search
-                    </button>
-                </div>
-            </form>
 
-            <div className="results">
-                <span>
-                    Dep: {form.departureAirport?.airportName} -{" "}
-                    {form.dateOfDeparture}
-                </span>
-                <span>
-                    Arr: {form.arrivalAirport?.airportName} -{" "}
-                    {form.dateOfReturn}
-                </span>
-                <span>
-                    Pass:{" "}
-                    {form.passengers.adults +
-                        "," +
-                        form.passengers.teens +
-                        "," +
-                        form.passengers.children +
-                        "," +
-                        form.passengers.infants}
-                </span>
-                <span>Round: {form.roundtrip === true ? "yes" : "no"}</span>
-                <span>DateType: {form.dateType}</span>
-                <span>FlexibleMonth: {form.flexibleScheduling.flexMonth}</span>
-                <span>
-                    FlexbileDuration: {form.flexibleScheduling.flexDuration}
-                </span>
-                <span>
-                    FlexnakjsdbwaWeekday: {form.flexibleScheduling.flexWeekDay}
-                </span>
-                <span>
-                    FlexnakCost: {form.flexibleScheduling.flexFlightCost}
-                </span>
+                        <FlexibleDates onChange={updateDateType} />
+                    </div>
+
+                    <Airports onChange={updateAirports} />
+
+                    <div className="divOtherInfo">
+                        {form.dateType === DateType.EXACT ? (
+                            <DatePickers
+                                roundtrip={form.roundtrip}
+                                onChange={updateDates}
+                            />
+                        ) : (
+                            <FlexibleScheduler
+                                roundtrip={form.roundtrip}
+                                onChange={updateFlexScheduler}
+                            />
+                        )}
+                        <Passengers onChange={updatePassengers} />
+                        <button
+                            className="elements label searchButton"
+                            onClick={searchFlights}
+                        >
+                            Search
+                        </button>
+                    </div>
+                </form>
             </div>
-        </div>
+
+            {search && showFares && (
+                <div>
+                    <ResultsList />
+                </div>
+            )}
+        </>
     );
 };
 

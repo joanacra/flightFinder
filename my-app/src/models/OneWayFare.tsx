@@ -1,7 +1,8 @@
 import Airport from "./Airport";
+import Fare from "./Fare";
 import Price from "./Price";
 
-export default class OneWayFare {
+export default class OneWayFare extends Fare {
     departureAirport: Airport;
     arrivalAirport: Airport;
     departureDate: string;
@@ -17,6 +18,7 @@ export default class OneWayFare {
         price: Price,
         flightNumber: string
     ) {
+        super();
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.departureDate = departureDate;
