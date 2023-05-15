@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import DatePickers from "./DatePickers";
 import Passengers from "./Passengers";
 import RoundtripOrNot from "./RoundtripOrNot";
@@ -6,11 +6,34 @@ import FlexibleDates, { DateType } from "./FlexibleDates";
 import FlexibleScheduler from "./FlexibleScheduler";
 import Airports from "./Airports";
 import "./SearchForm.css";
+import Airport from "../models/Airport";
+import RyanairService from "../services/RyanairService";
+
+type State = {
+    departureAirport: Airport | null;
+    arrivalAirport: Airport | null;
+    dateOfDeparture: string;
+    dateOfReturn: string;
+    passengers: {
+        adults: number;
+        teens: number;
+        children: number;
+        infants: number;
+    };
+    roundtrip: boolean;
+    dateType: DateType;
+    flexibleScheduling: {
+        flexMonth: string;
+        flexDuration: number | null;
+        flexWeekDay: string;
+        flexFlightCost: number | null;
+    };
+};
 
 const SearchForm = () => {
-    const [form, setForm] = useState({
-        departureAirport: "",
-        arrivalAirport: "",
+    const [form, setForm] = useState<State>({
+        departureAirport: null,
+        arrivalAirport: null,
         dateOfDeparture: "",
         dateOfReturn: "",
         passengers: {
@@ -28,6 +51,10 @@ const SearchForm = () => {
             flexFlightCost: null,
         },
     });
+
+    const updateAirports = (selectedAirports: any) => {
+        setForm({ ...form, ...selectedAirports });
+    };
 
     const updateDates = (newDates: any) => {
         setForm({ ...form, ...newDates });
@@ -49,6 +76,38 @@ const SearchForm = () => {
         setForm({ ...form, flexibleScheduling: newFlexScheduler });
     };
 
+    const searchFlights = (event: any) => {
+        event.preventDefault();
+
+        const service = new RyanairService();
+        if (form.roundtrip) {
+            service.getExactRoundtripFlights(
+                (form.departureAirport as Airport).airportCode,
+                (form.arrivalAirport as Airport).airportCode,
+                form.dateOfDeparture
+                    .replace(/\//g, "-")
+                    .split("-")
+                    .reverse()
+                    .join("-"),
+                form.dateOfReturn
+                    .replace(/\//g, "-")
+                    .split("-")
+                    .reverse()
+                    .join("-")
+            );
+        } else {
+            service.getExactOneWayFlights(
+                (form.departureAirport as Airport).airportCode,
+                (form.arrivalAirport as Airport).airportCode,
+                form.dateOfDeparture
+                    .replace(/\//g, "-")
+                    .split("-")
+                    .reverse()
+                    .join("-")
+            );
+        }
+    };
+
     return (
         <div className="frame">
             <form className="form">
@@ -61,7 +120,7 @@ const SearchForm = () => {
                     <FlexibleDates onChange={updateDateType} />
                 </div>
 
-                <Airports />
+                <Airports onChange={updateAirports} />
 
                 <div className="divOtherInfo">
                     {form.dateType === DateType.EXACT ? (
@@ -76,18 +135,23 @@ const SearchForm = () => {
                         />
                     )}
                     <Passengers onChange={updatePassengers} />
-                    <button className="elements label searchButton">
+                    <button
+                        className="elements label searchButton"
+                        onClick={searchFlights}
+                    >
                         Search
                     </button>
                 </div>
             </form>
 
-            {/* <div className="results">
+            <div className="results">
                 <span>
-                    Dep: {form.departureAirport} - {form.dateOfDeparture}
+                    Dep: {form.departureAirport?.airportName} -{" "}
+                    {form.dateOfDeparture}
                 </span>
                 <span>
-                    Arr: {form.arrivalAirport} - {form.dateOfReturn}
+                    Arr: {form.arrivalAirport?.airportName} -{" "}
+                    {form.dateOfReturn}
                 </span>
                 <span>
                     Pass:{" "}
@@ -111,7 +175,7 @@ const SearchForm = () => {
                 <span>
                     FlexnakCost: {form.flexibleScheduling.flexFlightCost}
                 </span>
-            </div> */}
+            </div>
         </div>
     );
 };
