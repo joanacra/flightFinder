@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Airport from "../models/Airport";
-import "./Airports.css";
 import RyanairService from "../services/RyanairService";
+import "./Airports.css";
 
 interface Props {
     onChange: (newAirports: any) => void;
@@ -93,7 +93,6 @@ const Airports = (props: Props) => {
     }, []);
 
     const getArrivalAirports = (airportCode: string) => {
-        console.log(airportCode);
         service
             .getArrivalAirports(departureAirport?.airportCode ?? airportCode)
             .then((airports) => setTotalArrivalAirports(airports));

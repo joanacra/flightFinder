@@ -1,9 +1,9 @@
 export default class Price {
-    amount: number;
     currency: string;
+    amount: number;
 
-    public constructor(amount: number, currency: string) {
-        this.amount = amount;
+    public constructor(currency: string, amount: number) {
         this.currency = currency;
+        this.amount = amount;
     }
 }
